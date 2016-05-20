@@ -1,2 +1,2 @@
-./run.sh
+./compile.sh
 qemu-system-i386 -kernel myos.bin

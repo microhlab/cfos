@@ -8,4 +8,4 @@ You must have installed gcc on ubuntu to use ar packager. just install gcc via a
 Player : Install qemu-system-x86 via apt-get<br />
 That's all<br />
 # Build and run
-Just type ./run.sh in terminal and enter<br />
+Just type ./run.sh in terminal and enter<br />i 
