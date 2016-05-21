@@ -1,4 +1,5 @@
 #include <shell.h>
+#include <console.h>
 
 const char* welcome = 
 "--------------------------------------------------------------------------------\
@@ -14,10 +15,11 @@ const char* welcome =
 |                                                                              |\
 |                                                                              |\
 |                                                                              |\
-|                                                                              |\
-|                                                                              |\
 --------------------------------------------------------------------------------";
 
 void kernel_main(void) {
+	initConsole();
+	initKeyboard();
+	print(welcome);
 	lsh_loop();
 }

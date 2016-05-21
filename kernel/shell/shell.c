@@ -1,10 +1,10 @@
 #include <shell.h>
 #include <console.h>
+#include <keyboard.h>
 
 void lsh_loop(void) {
 	char *line;
 	char **args;
-	initConsole();
 	
 	do {
 		printf("cfos$ ");

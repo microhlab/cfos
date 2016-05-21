@@ -1,9 +1,10 @@
 #include <console.h>
 #include <io.h>
+#include <mem.h>
 
 // INITIALIZE FUNCTIONS
 void initConsole(void) {
-	defaultColor = make_color(CL_WHITE, CL_BLACK);
+	defaultColor = make_color(CL_BLACK, CL_LIGHT_GREY);
 	emptyEntry = make_vgaentry(' ', defaultColor);
 	clrscr();
 	updateCursor();
@@ -17,19 +18,28 @@ void clrscr(void) {
 	}
 }
 
+void scrollDown(void) {
+	for (byte y=0; y < SRC_HEIGHT - 1; y++)
+		for (byte x=0; x < SRC_WIDTH; x++)
+			src[y*SRC_WIDTH + x] = src[(y+1)*SRC_WIDTH + x];
+	curY--;
+	for (byte x=0; x < SRC_WIDTH; x++)
+		src[curY*SRC_WIDTH + x] = emptyEntry;
+}
+
 // OUTPUT FUNCTIONS
 
 void putChar(char ch) {
 	if (ch=='\n') {
 		curY++; curX = 0;
-		if (curY == SRC_HEIGHT) curY = 0;
+		if (curY == SRC_HEIGHT) scrollDown();
 		return ;
 	}
 	src[curY * SRC_WIDTH + curX] = make_vgaentry(ch, defaultColor);
 	curX++;
 	if (curX==SRC_WIDTH) {
 		curY++; curX= 0;
-		if (curY==SRC_HEIGHT) curY=0;
+		if (curY==SRC_HEIGHT) scrollDown();
 	}
 	updateCursor();
 }
@@ -85,36 +95,4 @@ void updateCursor(void) {
 	outb(0x3D5, (pos >> 8) & 0x00FF);
 	outb(0x3D4, 15);
 	outb(0X3D5, pos & 0x00FF);
-}
-
-// INPUT FUNCTIONS
-char getChar(void) {
-	while (inb(0x60) > 0x39);
-	byte c = inb(0x60);
-	while (inb(0x60) == c);
-	return Character[c];
-}
-
-char* readLine(void) {
-	char* buffer;
-	memfill(buffer, 100, 0);
-	char c;
-	word pos = 0;
-	while (1) {
-		c = getChar();
-		if (c == '\b') {
-			if (pos > 0) {
-				buffer[--pos] = '\0';
-				removeChar();
-			}
-		}	else
-		if (c == '\n') {
-			buffer[pos] = '\0';
-			putChar('\n');
-			return buffer;
-		}	else {
-			buffer[pos++] = c;
-			putChar(c);
-		}
-	}
 }

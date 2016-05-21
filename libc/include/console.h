@@ -50,12 +50,9 @@ void initConsole(void);
 void clrscr(void);
 // Output function
 void putChar(char ch);
-void removeChar(void);
+void print(char* st);
 void print(char* st);
 void printf(const char* restrict format, ...);
 void updateCursor(void);
-// Input function
-char getChar(void);
-char* readLine(void);
 
 #endif
