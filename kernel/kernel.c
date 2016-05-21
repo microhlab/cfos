@@ -1,6 +1,4 @@
-#include "console.h"
-#include "printf.h"
-#include "string.h"
+#include "shell.h"
 
 const char* welcome = 
 "--------------------------------------------------------------------------------\
@@ -21,6 +19,5 @@ const char* welcome =
 --------------------------------------------------------------------------------";
 
 void kernel_main(void) {
-	initiallizeConsole();
-	printf(welcome);
+	lsh_loop();
 }

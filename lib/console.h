@@ -1,10 +1,12 @@
 #ifndef _CONSOLE_H
 #define _CONSOLE_H
 
-#include <stdint.h>
-#include <stddef.h>
+#include <stdarg.h>
+#include "string.h"
+#include "type.h"
 
 // Default values
+// VGA Colors
 enum vga_color {
 	CL_BLACK = 0,
 	CL_BLUE = 1,
@@ -24,25 +26,30 @@ enum vga_color {
 	CL_WHITE = 15,
 };
 
-#define VGA_WIDTH 80
-#define VGA_HEIGHT 25
+// Default VGA Screen 80 columns and 25 rows
+#define SRC_WIDTH 80
+#define SRC_HEIGHT 25
 
-static inline uint8_t make_color(enum vga_color fg, enum vga_color bg) {
+// Default function
+static inline word make_color(enum vga_color fg, enum vga_color bg) {
 	return fg | bg << 4;
 }
 
-static inline uint16_t make_vgaentry(char ch, uint8_t color) {
-	return (uint8_t) ch | (uint8_t) color << 8;
+static inline uint16_t make_vgaentry(char ch, byte color) {
+	return (byte) ch | (byte) color << 8;
 }
 
-uint8_t defaultColor;
-uint16_t emptyEntry;
-uint16_t blinkingCursor;
-static uint16_t* const VGA_MEMORY = (uint16_t*) 0xB8000;
+// Common values
+byte defaultColor, curX, curY;
+word emptyEntry;
+static word* const src = (word*) 0xB8000;
 
-// Terminal function
-void intiallizeConsole(void);
+// Initialize function
+void initConsole(void);
+void clrscr(void);
+// Output function
 void putchar(char ch);
-void write_string(const char* data);
+void printf(const char* restrict format, ...);
+// Input function
 
 #endif
