@@ -1,8 +1,8 @@
 CFLAGS = -ffreestanding -O2 -nostdlib
 CC = i386-linux-gcc $(CFLAGS)
-OBJS = kernel.o shell.o lib.a boot.o
+OBJS = kernel.o shell.o libc.a boot.o
 MAKE = make
-LIB_DIR = lib
+LIB_DIR = libc
 KERNEL_DIR = kernel
 
 all: myos.bin
@@ -12,7 +12,7 @@ myos.bin: boot.o
 	$(MAKE) -C $(KERNEL_DIR)
 	cp $(PWD)/kernel/kernel.o $(PWD)
 	cp $(PWD)/kernel/shell.o $(PWD)
-	cp $(PWD)/lib/lib.a $(PWD) 
+	cp $(PWD)/libc/libc.a $(PWD) 
 	$(CC) -T linker.ld -o myos.bin $(OBJS) -lgcc
 
 boot.o: boot.asm
@@ -21,4 +21,4 @@ boot.o: boot.asm
 clean:
 	$(MAKE) -C $(LIB_DIR) clean
 	$(MAKE) -C $(KERNEL_DIR) clean
-	rm -f *.o myos.bin
+	rm -f *.a myos.bin

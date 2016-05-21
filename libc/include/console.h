@@ -2,8 +2,9 @@
 #define _CONSOLE_H
 
 #include <stdarg.h>
-#include "string.h"
-#include "type.h"
+#include <string.h>
+#include <sysutils.h>
+#include <mem.h>
 
 // Default values
 // VGA Colors
@@ -48,8 +49,13 @@ static word* const src = (word*) 0xB8000;
 void initConsole(void);
 void clrscr(void);
 // Output function
-void putchar(char ch);
+void putChar(char ch);
+void removeChar(void);
+void print(char* st);
 void printf(const char* restrict format, ...);
+void updateCursor(void);
 // Input function
+char getChar(void);
+char* readLine(void);
 
 #endif
