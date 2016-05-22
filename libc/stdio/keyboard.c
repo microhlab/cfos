@@ -30,6 +30,7 @@ char* readLine(void) {
 		if (c == '\b') {
 			if (pos > 0) {
 				buffer[--pos] = '\0';
+				while (*buffer == ' ') buffer++;
 				removeChar();
 			}
 		}	else

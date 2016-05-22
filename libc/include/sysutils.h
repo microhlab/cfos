@@ -10,8 +10,6 @@
 #define word uint16_t
 #define longword size_t
 
-typedef char* string;
-
 static const char* Character = " \0001234567890-=\b\tqwertyuiop[]\n_asdfghjkl;\'`_\\zxcvbnm,./_*_ ";
 
 #endif

@@ -17,7 +17,11 @@ const char* welcome =
 |                                                                              |\
 --------------------------------------------------------------------------------";
 
+
+char* stt = "HelloGirl";
+
 void kernel_main(void) {
+	stt = "OhYeahfucking";
 	initConsole();
 	initKeyboard();
 	print(welcome);

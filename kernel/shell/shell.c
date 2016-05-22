@@ -3,12 +3,22 @@
 #include <keyboard.h>
 
 void lsh_loop(void) {
-	char *line;
+	char* cmd;
 	char **args;
 	
 	do {
 		printf("cfos$ ");
-		line = readLine();
-		putChar('\n');
+		cmd = readLine();
+		strip(cmd);
+		if (stringEqual(cmd, "osname"))
+			printf("Simple OS cfos version 1.0 - Chien Tran\n");
+		else
+		if (stringEqual(cmd, "clear"))
+			clrscr();
+		else
+		if (stringEqual(cmd, "help"))
+			printf(commandList);
+		else
+			printf("Command not found, type ""help"" to view available command\n");
 	}	while(1);
 }
