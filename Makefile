@@ -21,4 +21,4 @@ boot.o: boot.asm
 clean:
 	$(MAKE) -C $(LIB_DIR) clean
 	$(MAKE) -C $(KERNEL_DIR) clean
-	rm -f *.a *.o *.iso myos.bin
+	rm -f *.a *.o myos.bin
